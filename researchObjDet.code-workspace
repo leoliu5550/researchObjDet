@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../detr"
+		},
+		{
+			"path": "../yolov7"
+		}
+	],
+	"settings": {}
+}
