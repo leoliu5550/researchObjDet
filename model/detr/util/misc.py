@@ -1,6 +1,26 @@
 from typing import Optional
 from torch import Tensor
+'''
+PyTorch中包含的分布式软件包（即torch.distributed）
+'''
+import torch.distributed as dist
 
+def is_dist_avail_and_initialized():
+    # 分布式訓練設定
+    if not dist.is_available():
+        return False
+    if not dist.is_initialized():
+        return False
+    return True
+
+
+def get_rank():
+    if not is_dist_avail_and_initialized():
+        return 0
+    return dist.get_rank()
+
+def is_main_process():
+    return get_rank() == 0
 
 
 class NestedTensor(object):
