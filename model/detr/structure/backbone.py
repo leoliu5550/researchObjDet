@@ -4,6 +4,9 @@ import torch.nn.functional as F
 from torchvision.models._utils import IntermediateLayerGetter
 import torchvision
 from model.detr.util.misc import *
+# from model.detr.structure.position_encoding import build_position_encoding
+from model.detr.structure.position_encoding import build_position_encoding
+
 from typing import Dict,List
 
 class FrozenBatchNorm2d(nn.Module):
