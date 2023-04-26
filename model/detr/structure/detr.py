@@ -345,8 +345,8 @@ def build(args):
         weight_dict.update(aux_weight_dict)
 
     losses = ['labels', 'boxes', 'cardinality']
-    if args.masks:
-        losses += ["masks"]
+    # if args.masks:
+    #     losses += ["masks"]
     criterion = SetCriterion(num_classes, matcher=matcher, weight_dict=weight_dict,
                             eos_coef=args.eos_coef, losses=losses)
     criterion.to(device)
