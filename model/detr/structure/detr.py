@@ -5,17 +5,11 @@ DETR model and criterion classes.
 import torch
 import torch.nn.functional as F
 from torch import nn
-
 from model.detr.util import box_ops
-
-
 from model.detr.util.misc import (NestedTensor, nested_tensor_from_tensor_list,
                     accuracy, get_world_size, interpolate,
                     is_dist_avail_and_initialized)
-
 from model.detr.structure.backbone import build_backbone
-
-
 from model.detr.structure.matcher import build_matcher
 # 感覺上不用
 # from .segmentation import (DETRsegm, PostProcessPanoptic, PostProcessSegm,
@@ -32,7 +26,7 @@ class DETR(nn.Module):
             transformer: torch module of the transformer architecture. See transformer.py
             num_classes: number of object classes
             num_queries: number of object queries, ie detection slot. This is the maximal number of objects
-                         DETR can detect in a single image. For COCO, we recommend 100 queries.
+            DETR can detect in a single image. For COCO, we recommend 100 queries.
             aux_loss: True if auxiliary decoding losses (loss at each decoder layer) are to be used.
         """
         super().__init__()
@@ -44,20 +38,21 @@ class DETR(nn.Module):
         self.query_embed = nn.Embedding(num_queries, hidden_dim)
         self.input_proj = nn.Conv2d(backbone.num_channels, hidden_dim, kernel_size=1)
         self.backbone = backbone
-        self.aux_loss = aux_loss
+        self.aux_loss = aux_loss ## <--- set True or False
 
     def forward(self, samples: NestedTensor):
         """ The forward expects a NestedTensor, which consists of:
-               - samples.tensor: batched images, of shape [batch_size x 3 x H x W]
-               - samples.mask: a binary mask of shape [batch_size x H x W], containing 1 on padded pixels
+                - samples.tensor: batched images, of shape [batch_size x 3 x H x W]
+                - samples.mask: a binary mask of shape [batch_size x H x W], containing 1 on padded pixels
+
             It returns a dict with the following elements:
-               - "pred_logits": the classification logits (including no-object) for all queries.
+                - "pred_logits": the classification logits (including no-object) for all queries.
                                 Shape= [batch_size x num_queries x (num_classes + 1)]
-               - "pred_boxes": The normalized boxes coordinates for all queries, represented as
-                               (center_x, center_y, height, width). These values are normalized in [0, 1],
-                               relative to the size of each individual image (disregarding possible padding).
-                               See PostProcess for information on how to retrieve the unnormalized bounding box.
-               - "aux_outputs": Optional, only returned when auxilary losses are activated. It is a list of
+                - "pred_boxes": The normalized boxes coordinates for all queries, represented as
+                                (center_x, center_y, height, width). These values are normalized in [0, 1],
+                                relative to the size of each individual image (disregarding possible padding).
+                                See PostProcess for information on how to retrieve the unnormalized bounding box.
+                - "aux_outputs": Optional, only returned when auxilary losses are activated. It is a list of
                                 dictionnaries containing the two above keys for each decoder layer.
         """
         if isinstance(samples, (list, torch.Tensor)):
@@ -146,8 +141,8 @@ class SetCriterion(nn.Module):
 
     def loss_boxes(self, outputs, targets, indices, num_boxes):
         """Compute the losses related to the bounding boxes, the L1 regression loss and the GIoU loss
-           targets dicts must contain the key "boxes" containing a tensor of dim [nb_target_boxes, 4]
-           The target boxes are expected in format (center_x, center_y, w, h), normalized by the image size.
+            targets dicts must contain the key "boxes" containing a tensor of dim [nb_target_boxes, 4]
+            The target boxes are expected in format (center_x, center_y, w, h), normalized by the image size.
         """
         assert 'pred_boxes' in outputs
         idx = self._get_src_permutation_idx(indices)
@@ -167,7 +162,7 @@ class SetCriterion(nn.Module):
 
     def loss_masks(self, outputs, targets, indices, num_boxes):
         """Compute the losses related to the masks: the focal loss and the dice loss.
-           targets dicts must contain the key "masks" containing a tensor of dim [nb_target_boxes, h, w]
+            targets dicts must contain the key "masks" containing a tensor of dim [nb_target_boxes, h, w]   
         """
         assert "pred_masks" in outputs
 
@@ -219,9 +214,9 @@ class SetCriterion(nn.Module):
     def forward(self, outputs, targets):
         """ This performs the loss computation.
         Parameters:
-             outputs: dict of tensors, see the output specification of the model for the format
-             targets: list of dicts, such that len(targets) == batch_size.
-                      The expected keys in each dict depends on the losses applied, see each loss' doc
+            outputs: dict of tensors, see the output specification of the model for the format
+            targets: list of dicts, such that len(targets) == batch_size.
+                The expected keys in each dict depends on the losses applied, see each loss' doc
         """
         outputs_without_aux = {k: v for k, v in outputs.items() if k != 'aux_outputs'}
 
