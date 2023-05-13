@@ -1,15 +1,29 @@
-import argparse
-import datetime
-import json
-import random
-import time
-from pathlib import Path
-import numpy as np
+import yaml
 import torch
-from torch.utils.data import DataLoader, DistributedSampler
+import torch.nn as nn
+import torchvision.models as models
+from collections import OrderedDict
 
-# import datasets
-# import util.misc as utils
-# from datasets import build_dataset, get_coco_api_from_dataset
-# from engine import evaluate, train_one_epoch
-# from models import build_model
+
+def get_hyper():
+    with open('hyperparameter.yaml', 'r') as file:
+        para = yaml.safe_load(file)
+    return para
+
+def create_checkpoint(epoch,model,optimizer):
+    checkpoint = {
+        'epoch': epoch,
+        'model': model(),
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict()
+        }
+    torch.save(checkpoint, 'checkpoint{}.pkl'.format(epoch))
+    
+    
+    
+def main():
+    hyperparameter = get_hyper()
+    
+
+if __name__ == '__main__':
+    main()

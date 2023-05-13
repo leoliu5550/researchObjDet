@@ -1,0 +1,14 @@
+datapath: '/data/lcliu/neudet_coco'
+DEVICE:  cuda:0
+TRAININ_SETTING:
+  - EPOCH: 300
+  - BATCH: 32
+  - learning_rate:  5.0E-5
+  - Optimizer: 
+      - name: Adam
+      - learning_rate: 
+
+backbone: resnet50
+otherbackbone:
+  - 'print(dir(torchvision.models))'
+  - 'customer'
