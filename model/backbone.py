@@ -4,22 +4,11 @@ from collections import OrderedDict
 
 
 
+class backbonebase(nn.modules):
+    def __init__(self):
+        super()
 
-class BackboneBase(nn.Module):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-    
-    
-    
-    
-    model = models.resnet18(pretrained=True)
-    model_state = model.state_dict()
-    print("model_state type:", type(model_state))
-    for param_tensor in model_state():
-        print("name:", param_tensor)
-        print("value:", model_state[param_tensor])
-        
-        
+
 class BackboneBase(nn.Module):
 
     def __init__(self, backbone: nn.Module, train_backbone: bool, num_channels: int, return_interm_layers: bool):
@@ -43,3 +32,21 @@ class BackboneBase(nn.Module):
             mask = F.interpolate(m[None].float(), size=x.shape[-2:]).to(torch.bool)[0]
             out[name] = NestedTensor(x, mask)
         return out
+
+
+
+class Backbone(BackboneBase):
+    """ResNet backbone with frozen BatchNorm."""
+    def __init__(self, name: str,
+                train_backbone: bool,
+                return_interm_layers: bool,
+                dilation: bool):
+        
+        backbone = getattr(torchvision.models, name)(
+            replace_stride_with_dilation=[False, False, dilation],
+            pretrained=is_main_process(), norm_layer=FrozenBatchNorm2d)
+        
+        num_channels = 512 if name in ('resnet18', 'resnet34') else 2048
+        
+        super().__init__(backbone, train_backbone, num_channels, return_interm_layers)
+
