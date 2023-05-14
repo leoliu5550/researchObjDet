@@ -7,10 +7,8 @@ from collections import OrderedDict
 #endregion
 
 #region logging
-
-
 logging.config.fileConfig('cfg/logger.conf')
-# root_logger = logging.getLogger('root')
+root_logger = logging.getLogger('root')
 # root_logger.debug('MainProg:Test Root Logger...')
 logger = logging.getLogger('main')
 # logger.info('Test Main Logger')
@@ -37,7 +35,7 @@ def create_checkpoint(epoch,model,optimizer):
     
 def main():
     hyperparameter = get_hyper()
-    
+    logger.debug(hyperparameter)
 
 if __name__ == '__main__':
     main()
