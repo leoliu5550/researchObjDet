@@ -13,26 +13,16 @@
 
 import os,logging
 
+import logging,logging.config
+import temp2 as mod
+
+logging.config.fileConfig('cfg/logger.conf')
+root_logger = logging.getLogger('root')
+
+root_logger.debug('MainProg:Test Root Logger...')
+logger = logging.getLogger('main')
+logger.info('Test Main Logger')
+
+mod.testLogger()#子模块
 
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
-# set two handlers
-log_file = "{}.log".format(__name__)
-# rm_file(log_file)
-fileHandler = logging.FileHandler(os.path.join('log', log_file), mode = 'w')
-fileHandler.setLevel(logging.DEBUG)
-consoleHandler = logging.StreamHandler()
-consoleHandler.setLevel(logging.DEBUG)
-
-# set formatter
-formatter = logging.Formatter('[%(asctime)s] {%(module)s:%(lineno)d} %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-consoleHandler.setFormatter(formatter)
-fileHandler.setFormatter(formatter)
-
-# add
-logger.addHandler(fileHandler)
-logger.addHandler(consoleHandler)
-
-logger.info("test95195195151")
