@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 #region logging
 logging.config.fileConfig('./cfg/logger.conf')
-root_logger = logging.getLogger('root')
+# root_logger = logging.getLogger('root')
 # root_logger.debug('MainProg:Test Root Logger...')
 logger = logging.getLogger('main')
 # logger.info('Test Main Logger')

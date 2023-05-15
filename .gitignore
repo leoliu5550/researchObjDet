@@ -1,5 +1,5 @@
 *.vscode*
 *.pytest*
 # *temp*
-*.log
+
 *__pycache*
