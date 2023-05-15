@@ -7,7 +7,7 @@ from collections import OrderedDict
 #endregion
 
 #region logging
-logging.config.fileConfig('cfg/logger.conf')
+logging.config.fileConfig('./cfg/logger.conf')
 root_logger = logging.getLogger('root')
 # root_logger.debug('MainProg:Test Root Logger...')
 logger = logging.getLogger('main')
@@ -15,7 +15,7 @@ logger = logging.getLogger('main')
 # logger.info("test")
 #endregion
 
-CFG_PATH = 'cfg/hyperparameter.yaml'
+CFG_PATH = './cfg/hyperparameter.yaml'
 
 def get_hyper():
     with open(CFG_PATH, 'r') as file:
