@@ -6,11 +6,16 @@ TRAININ_SETTING:
   - learning_rate:  5.0E-5
   - Optimizer: 
       - name: Adam
-      - learning_rate: 
+      - Op_learning_rate: 
 
-backbone: resnet50
+backbone: resnet18
 otherbackbone:
-  - 'print(dir(torchvision.models))'
-  - 'customer'
+  - resnet18
+  - resnet50
+  - resnet101
+  - densenet121
+  - densenet161
+  - custom
+
 
 

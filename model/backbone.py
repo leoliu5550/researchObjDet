@@ -1,52 +1,46 @@
+import torch
 import torch.nn as nn
 import torchvision.models as models
-from collections import OrderedDict
 
-
-
-class backbonebase(nn.modules):
-    def __init__(self):
-        super()
-
-
-class BackboneBase(nn.Module):
-
-    def __init__(self, backbone: nn.Module, train_backbone: bool, num_channels: int, return_interm_layers: bool):
+class backbonebase(nn.Module):
+    def __init__(self,net = 'resnet18',pretrain=True,cust_model=None):
         super().__init__()
-        for name, parameter in backbone.named_parameters():
-            if not train_backbone or 'layer2' not in name and 'layer3' not in name and 'layer4' not in name:
-                parameter.requires_grad_(False)
-        if return_interm_layers:
-            return_layers = {"layer1": "0", "layer2": "1", "layer3": "2", "layer4": "3"}
-        else:
-            return_layers = {'layer4': "0"}
-        self.body = IntermediateLayerGetter(backbone, return_layers=return_layers)
-        self.num_channels = num_channels
-
-    def forward(self, tensor_list: NestedTensor):
-        xs = self.body(tensor_list.tensors)
-        out: Dict[str, NestedTensor] = {}
-        for name, x in xs.items():
-            m = tensor_list.mask
-            assert m is not None
-            mask = F.interpolate(m[None].float(), size=x.shape[-2:]).to(torch.bool)[0]
-            out[name] = NestedTensor(x, mask)
-        return out
+        weights = None
+        if net == 'resnet18':
+            if pretrain:
+                weights = models.ResNet18_Weights.DEFAULT
+            self.net = models.resnet18(weights=weights)
+            self.net = torch.nn.Sequential(*(list(self.net.modules())[:-1]))
 
 
-
-class Backbone(BackboneBase):
-    """ResNet backbone with frozen BatchNorm."""
-    def __init__(self, name: str,
-                train_backbone: bool,
-                return_interm_layers: bool,
-                dilation: bool):
+        if net == 'resnet50':
+            if pretrain:
+                weights = models.ResNet50_Weights.DEFAULT
+            self.net = models.resnet50(weights=weights)
         
-        backbone = getattr(torchvision.models, name)(
-            replace_stride_with_dilation=[False, False, dilation],
-            pretrained=is_main_process(), norm_layer=FrozenBatchNorm2d)
+        if net == 'resnet101':
+            if pretrain:
+                weights = models.ResNet101_Weights.DEFAULT
+            self.net = models.resnet101(weights=weights)
+            
+        if net == 'densenet121':
+            if pretrain:
+                weights = models.DenseNet121_Weights.DEFAULT
+            self.net = models.densenet121(weights=weights)
         
-        num_channels = 512 if name in ('resnet18', 'resnet34') else 2048
+        if net == 'densenet161':
+            if pretrain:
+                weights = models.DenseNet161_Weights.DEFAULT
+            self.net = models.densenet161(weights=weights)
+        if net == 'custom':
+            assert cust_model != None ,"custom model cannot be None"
+            self.net = cust_model
         
-        super().__init__(backbone, train_backbone, num_channels, return_interm_layers)
+        # if net != 'custom':
+        #     self.net = torch.nn.Sequential(*(list(self.net.modules())[:-1]))
+
+            
+    def forward(self,x):
+        x = self.net(x)
+        return x
 

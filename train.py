@@ -1,9 +1,8 @@
 #region import_part
-import yaml,os,logging,logging.config
+import dynamic_yaml
+import logging,logging.config
 import torch
-import torch.nn as nn
-import torchvision.models as models
-from collections import OrderedDict
+from model.backbone import backbonebase
 #endregion
 
 #region logging
@@ -19,7 +18,7 @@ CFG_PATH = './cfg/hyperparameter.yaml'
 
 def get_hyper():
     with open(CFG_PATH, 'r') as file:
-        para = yaml.safe_load(file)
+        para = dynamic_yaml.load(file)
     return para
 
 def create_checkpoint(epoch,model,optimizer):
@@ -36,6 +35,8 @@ def create_checkpoint(epoch,model,optimizer):
 def main():
     hyperparameter = get_hyper()
     logger.debug(hyperparameter)
+    model = backbonebase()
+    logger.debug(model[:-2])
 
 if __name__ == '__main__':
     main()
