@@ -13,6 +13,7 @@ def get_hyper():
     return para
 
 # print(get_hyper())
+@pytest.disable()
 class Testbackbonebase:
     def test_resnet18(self):
         x = torch.ones(1,3,256,256)

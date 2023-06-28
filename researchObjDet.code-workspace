@@ -4,6 +4,11 @@
 			"path": "."
 		}
 	],
-	"settings": {}
-	
+	"settings": {
+		"python.testing.pytestArgs": [
+			"TEST"
+		],
+		"python.testing.unittestEnabled": false,
+		"python.testing.pytestEnabled": true
+	}
 }
