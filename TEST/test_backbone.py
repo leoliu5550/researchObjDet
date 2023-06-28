@@ -13,15 +13,12 @@ def get_hyper():
     return para
 
 # print(get_hyper())
-@pytest.disable()
+@pytest.mark.skip(reason="Skipping this CLASS level test")
 class Testbackbonebase:
     def test_resnet18(self):
         x = torch.ones(1,3,256,256)
         model = backbonebase()
         assert model(x).shape == torch.Size([1,512,3,3])
         
-x = torch.ones(1,3,256,256)
-model = backbonebase()
-print(model(x))
 
 
