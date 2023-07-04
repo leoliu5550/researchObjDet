@@ -8,11 +8,17 @@ from model.SelfAttention import selfattention
 
 
 class Testbselfattention:
-
     def test_selfattention(self):
-        x = torch.ones([1,1,3,5])
-        model = selfattention(5)
+        x = torch.ones([1,3,6])
+        model = selfattention(6)
 
         assert model(x).shape == x.shape
         
 
+class Testmulthead:
+    def test_selfattention(self):
+        x = torch.ones([1,3,6])
+        model = selfattention(6)
+
+        assert model(x).shape == x.shape
+        

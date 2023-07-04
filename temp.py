@@ -1,12 +1,17 @@
 import torch
+d_model = 6
+a = torch.arange(1,25)
+[batch_szie,row_data,data]
 
-
-a = torch.arange(1,13)
-b = torch.reshape(a,(1,1,1,12))
+a = a.reshape([1,1,4,d_model])
+print(a.size())
 print(a)
-print(b)
-print(b.shape)
 
-c = torch.reshape(b,(1,1,4,3))
-print(c)
-print(c.shape)
+head = 2
+length = int(d_model/ head)
+print(length)
+
+b = a
+b = torch.reshape(b,(1,1,4,2,length))
+print(b.shape)
+print(b)
