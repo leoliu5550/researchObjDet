@@ -22,15 +22,15 @@ class selfattention(nn.Module):
         b_vale = a_vale @ v_vale
         return b_vale
     
-# class multhead(nn.Module):
-#     def __init__(self,num_head):
-#         super().__init__()
-#         self.num_head = num_head
+class multhead(nn.Module):
+    def __init__(self,num_head):
+        super().__init__()
+        self.num_head = num_head
         
         
 
-    # def forward(self,x):
-    #     batch_size, length, d_model = x.size()
-    #     x = x.reshape()
+    def forward(self,x):
+        batch_size, d_model,length = x.size()
+        x = x.reshape()
 
-    #     pass
+        pass
