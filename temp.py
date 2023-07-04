@@ -1,17 +1,20 @@
 import torch
 d_model = 6
-a = torch.arange(1,25)
-[batch_szie,row_data,data]
+# a = torch.arange(1,25)
+a = torch.arange(1,13)
+# [batch_szie,row_data,data]
 
-a = a.reshape([1,1,4,d_model])
-print(a.size())
-print(a)
+a = a.reshape([1,2,d_model])
 
-head = 2
-length = int(d_model/ head)
-print(length)
+import torch.nn as nn
 
-b = a
-b = torch.reshape(b,(1,1,4,2,length))
-print(b.shape)
-print(b)
+tensor = torch.FloatTensor([[1, 2, 4, 1],
+                            [6, 3, 2, 4],
+                            [2, 4, 6, 1]])
+
+layer_norm = nn.LayerNorm([3, 4],elementwise_affine=False)
+norm = layer_norm(tensor)
+print(norm)
+print(torch.sum(norm[0]))
+print(torch.sum(norm[0]))
+print()
