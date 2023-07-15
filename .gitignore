@@ -3,5 +3,5 @@
 # *temp*
 *.log
 *__pycache*
-wandb*
 .DS_Store
+wandb/*
