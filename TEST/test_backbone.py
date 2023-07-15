@@ -18,6 +18,7 @@ class Testbackbonebase:
     def test_resnet18(self):
         x = torch.ones(1,3,256,256)
         model = backbonebase()
+        y = 1
         assert model(x).shape == torch.Size([1,512,3,3])
         
 
