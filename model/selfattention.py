@@ -28,6 +28,7 @@ class multhead(nn.Module):
         x = self.selfatten(q_vale,k_vale,v_vale)
         x = self.concat(x)
         return x
+    
     def split(self,x):
         batch_size,length, _ = x.size()
         d_tensor = self.d_model//self.num_head

@@ -18,8 +18,8 @@ class Testbselfattention:
 
 class Testmulthead:
     def test_multhead(self):
-        x = torch.ones([1,3,6])
+        x = torch.ones([9,3,6])
+        # num_head and d_model
         model = multhead(2,6)
-        # assert model(x).shape == torch.Size([1,3,2,3])
-        assert model(x).shape == torch.Size([1,3,6])
+        assert model(x).shape == x.size()
         
