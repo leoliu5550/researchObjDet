@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from model.SelfAttention import multhead
+from model.selfattention import multhead
 class encoder_block:
     def __init__(self,num_head,d_model):
         super().__init__()
