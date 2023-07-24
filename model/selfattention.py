@@ -30,7 +30,7 @@ class multhead_position(nn.Module):
         self.w_v = nn.Linear(self.d_model,self.d_model)
 
     def forward(self,x):
-
+        # 加入位置資訊
         w_q = self.postin(self.w_q(x))
         w_k = self.postin(self.w_k(x))
 

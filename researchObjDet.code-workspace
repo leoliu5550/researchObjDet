@@ -6,7 +6,7 @@
 	],
 	"settings": {
 		"python.testing.pytestArgs": [
-			"./TEST/"
+			"./TEST"
 		],
 		"python.testing.unittestEnabled": false,
 		"python.testing.pytestEnabled": true

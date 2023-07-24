@@ -2,7 +2,8 @@ import sys
 sys.path.append('.')
 import torch
 import torch.nn as nn
-from model.selfattention import multhead
+from model.selfattention import multhead_position
+
 from model.position_encoding import PositionEmbeddingSine
 
 
@@ -12,7 +13,7 @@ class encoder_block(nn.Module):
         self.num_head = num_head
         self.d_model = d_model
         self.normlayer = nn.LayerNorm(d_model)
-        self.multattention = multhead(
+        self.multattention = multhead_position(
             self.num_head,
             self.d_model
             )
