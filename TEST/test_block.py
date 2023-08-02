@@ -16,3 +16,8 @@ class Testencoderblock:
         model = encoder_block(num_head,d_model)
         assert model(x).shape == x.size() 
 
+
+class Testparamets:
+    def test_vector(self):
+
+        

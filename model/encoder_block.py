@@ -32,11 +32,3 @@ class encoder_block(nn.Module):
         x = self.normlayer(x)
 
         return x
-    
-D_MODEL = 6
-NUM_HEAD = 2
-
-# batch,rows,d_model
-x = torch.ones([9,3,D_MODEL])
-model = encoder_block(NUM_HEAD,D_MODEL)
-print(model(x))
