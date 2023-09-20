@@ -2,7 +2,7 @@ import torch
 import sys
 sys.path.append('.')
 import torch.nn as nn
-from model.position_encoding import PositionEmbeddingSine
+from model.detr.position_encoding import PositionEmbeddingSine
 
 
 class selfattention(nn.Module):

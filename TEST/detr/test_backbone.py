@@ -5,7 +5,7 @@ import sys,os
 sys.path.append('.')
 import torch
 
-from model.backbone import backbonebase
+from model.detr.backbone import backbonebase
 
 def get_hyper():
     CFG_PATH = './cfg/hyperparameter.yaml'
@@ -23,10 +23,10 @@ class Testbackbonebase:
         assert model(x).shape == torch.Size([1,512,3,3])
         
         
-logger = logging.getLogger('main.mod')
-x = torch.ones(1,3,256,256)
-model = backbonebase()
-print(model.children)
+# logger = logging.getLogger('main.mod')
+# x = torch.ones(1,3,256,256)
+# model = backbonebase()
+# print(model.children)
 
 # print(model.modules)
 

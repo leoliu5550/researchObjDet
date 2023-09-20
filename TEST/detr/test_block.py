@@ -3,8 +3,7 @@ sys.path.append('.')
 import torch 
 import torch.nn
 
-
-from model.encoder_block import encoder_block
+from model.detr.encoder_block import encoder_block
 
 
 class Testencoderblock:
@@ -17,7 +16,7 @@ class Testencoderblock:
         assert model(x).shape == x.size() 
 
 
-class Testparamets:
-    def test_vector(self):
+# class Testparamets:
+#     def test_vector(self):
 
         

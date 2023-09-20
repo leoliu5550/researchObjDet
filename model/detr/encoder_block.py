@@ -2,9 +2,9 @@ import sys
 sys.path.append('.')
 import torch
 import torch.nn as nn
-from model.selfattention import multhead_position
+from model.detr.selfattention import multhead_position
 
-from model.position_encoding import PositionEmbeddingSine
+from model.detr.position_encoding import PositionEmbeddingSine
 
 
 class encoder_block(nn.Module):

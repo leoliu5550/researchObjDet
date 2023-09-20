@@ -4,8 +4,8 @@ import sys,os
 import torch
 import torch.nn as nn
 sys.path.append('.')
-from model.selfattention import *
-from model.position_encoding import PositionEmbeddingSine 
+from model.detr.selfattention import *
+from model.detr.position_encoding import PositionEmbeddingSine 
 
 
 D_MODEL = 6
