@@ -1,5 +1,6 @@
 import pytest
 import dynamic_yaml
+import logging
 import sys,os
 sys.path.append('.')
 import torch
@@ -21,5 +22,12 @@ class Testbackbonebase:
         y = 1
         assert model(x).shape == torch.Size([1,512,3,3])
         
+        
+logger = logging.getLogger('main.mod')
+x = torch.ones(1,3,256,256)
+model = backbonebase()
+print(model.children)
+
+# print(model.modules)
 
 

@@ -1,9 +1,11 @@
-import torch 
-import torch.nn
-import pytest
-from model.encoder_block import encoder_block
 import sys
 sys.path.append('.')
+import torch 
+import torch.nn
+
+
+from model.encoder_block import encoder_block
+
 
 class Testencoderblock:
 
@@ -14,3 +16,8 @@ class Testencoderblock:
         model = encoder_block(num_head,d_model)
         assert model(x).shape == x.size() 
 
+
+class Testparamets:
+    def test_vector(self):
+
+        

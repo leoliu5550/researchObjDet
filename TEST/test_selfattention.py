@@ -6,6 +6,8 @@ import torch.nn as nn
 sys.path.append('.')
 from model.selfattention import *
 from model.position_encoding import PositionEmbeddingSine 
+
+
 D_MODEL = 6
 NUM_HEAD = 2
 class Testbselfattention:
@@ -18,12 +20,19 @@ class Testbselfattention:
         
 
 class Testmulthead:
-    def test_multhead(self):
+    x = torch.ones([9,3,D_MODEL])
+    def test_pos_head(self):
         # batch,rows,d_model
-        x = torch.ones([9,3,D_MODEL])
         # num_head and d_model
-        model = multhead(NUM_HEAD,D_MODEL)
-        assert model(x).shape == x.size()
+        model = multhead_position(NUM_HEAD,D_MODEL)
+        assert model(self.x).shape == self.x.size()
+    # unfinish
+    def test_obj_head(self):
+        # batch,rows,d_model
+        # num_head and d_model
+        model = multhead_position(NUM_HEAD,D_MODEL)
+        assert model(self.x).shape == self.x.size()
+
 
 
 
@@ -33,8 +42,7 @@ class Testpostencode:
     model = PositionEmbeddingSine(D_MODEL)
     weight = model.weight
     def test_SinCos(self):
-        # print()
-        # print("#"*100)
-        # print(self.model(self.x))
+
         assert self.model(self.x).shape == self.x.shape
         
+
